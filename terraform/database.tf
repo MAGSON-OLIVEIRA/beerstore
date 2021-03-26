@@ -5,9 +5,10 @@ module "rds" {
   identifier = "mdcode-beerstore-rds"
 
   engine = "postgres"
-  engine_version = "10.4"
+  engine_version = "12.5"
   instance_class = "db.t2.micro"
   allocated_storage = "100"
+  major_engine_version = "12"
 
   name = "beerstore"
   username = "beerstore"
@@ -21,6 +22,8 @@ module "rds" {
   storage_type = "gp2"
   multi_az = "true"
   family = "postgres10"
+
+  create_db_parameter_group = false
 
   subnet_ids = "${flatten(chunklist(aws_subnet.private_subnet.*.id, 1))}"
 }
